@@ -1,0 +1,18 @@
+version: "3"
+services:
+  recepts:
+    env_file:
+      - .env
+    container_name: resipe #${IMAGE_APP_TAG}
+    image: resipe
+    
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - 8000:8000
+    volumes:
+      - "./media:/var/app/media"
+      - "./static:/var/app/static"
