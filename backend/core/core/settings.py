@@ -95,24 +95,6 @@ if os.environ.get('DB_NAME'):
             'PORT': os.environ['DB_PORT'],
         }
     }
-elif ENV_FILE:
-    file = open(ENV_FILE)
-    ENV = [line.strip() for line in file]
-    DB_NAME = [line.strip("DB_NAME=") for line in ENV][0]
-    DB_USER = [line.strip("DB_USER=") for line in ENV][1]
-    DB_PASSWORD = [line.strip("DB_PASSWORD=") for line in ENV][2]
-    DB_HOST = [line.strip("DB_HOST=") for line in ENV][3]
-    DB_PORT = [line.strip("DB_PORT=") for line in ENV][4]
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': DB_NAME,
-            'USER': DB_USER,
-            'PASSWORD': DB_PASSWORD,
-            'HOST': DB_HOST,
-            'PORT': DB_PORT,
-        }
-    }
 else:
     DATABASES = {
         'default': {
