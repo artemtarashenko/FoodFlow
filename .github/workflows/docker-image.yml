@@ -36,7 +36,7 @@ jobs:
       # 4. Публикация образа
       - name: Push Docker image
         run: |
-          docker push artemtarashenko/foodflow-backend:latest
-          docker push artemtarashenko/foodflow-backend:${GITHUB_SHA::8}
+          docker push artemtaraschenko/foodflow-backend:latest
+          docker push artemtaraschenko/foodflow-backend:${GITHUB_SHA::8}
 
       
