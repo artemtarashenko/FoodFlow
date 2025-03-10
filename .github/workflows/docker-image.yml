@@ -18,8 +18,8 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. Логин в Docker Hub
-      - name: 'fentesy@bk.ru'
-        uses: '6AgYjbcu9kh'
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -28,8 +28,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t artemtarashenko/foodflow-backend:latest \
-            -t artemtarashenko/foodflow-backend:${GITHUB_SHA::8} \
+            -t artemtaraschenko/foodflow-backend:latest \
+            -t artemtaraschenko/foodflow-backend:${GITHUB_SHA::8} \
             -f backend/Dockerfile \
             .
 
@@ -38,3 +38,5 @@ jobs:
         run: |
           docker push artemtarashenko/foodflow-backend:latest
           docker push artemtarashenko/foodflow-backend:${GITHUB_SHA::8}
+
+      
