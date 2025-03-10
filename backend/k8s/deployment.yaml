@@ -11,11 +11,37 @@ spec:
     metadata:
       labels:
         app: foodflow
+    spec:
       containers:
         - name: recepts
-          image: python:3.8
+          image: artemtaraschenko/foodflow-backend:latest  # Ваш новый образ
           ports:
             - containerPort: 8000
           env:
             - name: DEBUG
               value: "1"
+          # Добавьте volume mounts из docker-compose
+          volumeMounts:
+            - name: media-volume
+              mountPath: /var/app/media
+            - name: static-volume
+              mountPath: /var/app/static
+          # Добавьте проверки работоспособности
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+      # Добавьте volumes из docker-compose
+      volumes:
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: media-pvc
+        - name: static-volume
+          persistentVolumeClaim:
+            claimName: static-pvc
